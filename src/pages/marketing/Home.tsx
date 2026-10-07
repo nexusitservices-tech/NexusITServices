@@ -30,19 +30,24 @@ export default function Home() {
       
       {/* Hero Section with Morphy Background & Dynamic Typewriter */}
       <section className="relative w-full pt-16 pb-20 md:pt-24 md:pb-28 overflow-hidden">
-        {/* Background Visual Layer */}
-        <div className="absolute inset-0 z-0 pointer-events-none select-none">
-          <img 
-            src="/herobackground.jpg" 
-            alt="Dubai Skyline & Enterprise Network Background" 
-            referrerPolicy="no-referrer"
-            loading="eager"
-            decoding="async"
-            fetchPriority="high"
-            width={1671}
-            height={941}
-            className="w-full h-full object-cover object-center opacity-45 filter contrast-105 saturate-115"
-          />
+        {/* Background Visual Layer with Animated Hero Video */}
+        <div className="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden">
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            poster="/herobackground.jpg"
+            className="w-full h-full object-cover object-center opacity-45 sm:opacity-55 filter contrast-105 saturate-115 transition-opacity duration-700"
+          >
+            <source src="/Nexus-IT-Sservices-hero-background.mp4" type="video/mp4" />
+            <source src="https://cdn.sceneai.art/Hero%20Section%20Video/0519be39-d8d1-48a5-84ee-f8a1ec038cd6.mp4" type="video/mp4" />
+            <img 
+              src="/herobackground.jpg" 
+              alt="Nexus IT Services Enterprise Background" 
+              className="w-full h-full object-cover object-center opacity-45"
+            />
+          </video>
           <div className="absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_center,transparent_30%,#F8FAFC_90%)] opacity-75"></div>
           <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-blue-500/15 blur-[130px] rounded-full"></div>
           <div className="absolute top-1/3 left-1/3 w-[450px] h-[250px] bg-[#0046AF]/15 blur-[110px] rounded-full"></div>
