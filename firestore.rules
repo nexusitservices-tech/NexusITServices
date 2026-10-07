@@ -1,0 +1,43 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper to validate inquiry submission
+    function isValidInquiry(data) {
+      return data.fullName is string && data.fullName.size() > 0 && data.fullName.size() <= 100
+        && data.email is string && data.email.size() > 0 && data.email.size() <= 120
+        && data.service is string
+        && data.status in ['new', 'in_review', 'contacted', 'scheduled', 'archived']
+        && data.createdAt is string;
+    }
+
+    // Helper to validate client portal account signup request
+    function isValidAccountRequest(data) {
+      return data.fullName is string && data.fullName.size() > 0 && data.fullName.size() <= 100
+        && data.email is string && data.email.size() > 0 && data.email.size() <= 120
+        && data.company is string && data.company.size() > 0 && data.company.size() <= 120
+        && data.status in ['pending', 'approved', 'rejected']
+        && data.createdAt is string;
+    }
+
+    match /inquiries/{inquiryId} {
+      allow create: if isValidInquiry(request.resource.data);
+      allow read, update, delete: if true;
+    }
+
+    match /accountRequests/{requestId} {
+      allow create: if isValidAccountRequest(request.resource.data);
+      allow read, update, delete: if true;
+    }
+
+    match /projects/{projectId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

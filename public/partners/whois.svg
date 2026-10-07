@@ -1,0 +1,8 @@
+<svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <title>Whois</title>
+  <!-- Transparent Whois lookup icon -->
+  <circle cx="11" cy="11" r="7.5" fill="none" stroke="#005691" stroke-width="2.2"/>
+  <path fill="#FF6B00" stroke="#FF6B00" stroke-width="2.2" stroke-linecap="round" d="M16.5 16.5L21 21"/>
+  <!-- stylized W inside -->
+  <path fill="none" stroke="#005691" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M7 9.5l1.6 4.5 1.4-2.8 1.4 2.8 1.6-4.5"/>
+</svg>

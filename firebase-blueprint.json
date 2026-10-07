@@ -1,0 +1,85 @@
+{
+  "entities": {
+    "Inquiry": {
+      "title": "Inquiry",
+      "description": "Enterprise client consultation or quote request",
+      "type": "object",
+      "properties": {
+        "fullName": { "type": "string", "maxLength": 100 },
+        "company": { "type": "string", "maxLength": 120 },
+        "email": { "type": "string", "format": "email", "maxLength": 120 },
+        "phone": { "type": "string", "maxLength": 50 },
+        "service": { "type": "string", "maxLength": 80 },
+        "budget": { "type": "string", "maxLength": 80 },
+        "requirements": { "type": "string", "maxLength": 2000 },
+        "status": { 
+          "type": "string", 
+          "enum": ["new", "in_review", "contacted", "scheduled", "archived"] 
+        },
+        "createdAt": { "type": "string" },
+        "source": { "type": "string", "maxLength": 100 }
+      },
+      "required": ["fullName", "email", "service", "status", "createdAt"]
+    },
+    "ClientProject": {
+      "title": "ClientProject",
+      "description": "Enterprise project delivery tracking and SLA milestones",
+      "type": "object",
+      "properties": {
+        "projectCode": { "type": "string", "maxLength": 50 },
+        "clientName": { "type": "string", "maxLength": 100 },
+        "clientEmail": { "type": "string", "format": "email" },
+        "title": { "type": "string", "maxLength": 150 },
+        "serviceCategory": { "type": "string", "maxLength": 80 },
+        "status": { 
+          "type": "string", 
+          "enum": ["discovery", "architecture", "implementation", "launch", "support"] 
+        },
+        "progress": { "type": "number" },
+        "slaTier": { "type": "string", "maxLength": 50 },
+        "targetDelivery": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["projectCode", "clientName", "title", "status", "progress", "createdAt"]
+    },
+    "AccountRequest": {
+      "title": "AccountRequest",
+      "description": "Client portal signup access request requiring admin review and approval",
+      "type": "object",
+      "properties": {
+        "requestId": { "type": "string", "maxLength": 50 },
+        "fullName": { "type": "string", "maxLength": 100 },
+        "email": { "type": "string", "format": "email", "maxLength": 120 },
+        "company": { "type": "string", "maxLength": 120 },
+        "designation": { "type": "string", "maxLength": 100 },
+        "phone": { "type": "string", "maxLength": 50 },
+        "service": { "type": "string", "maxLength": 100 },
+        "seats": { "type": "string", "maxLength": 50 },
+        "useCase": { "type": "string", "maxLength": 2000 },
+        "status": { 
+          "type": "string", 
+          "enum": ["pending", "approved", "rejected"] 
+        },
+        "createdAt": { "type": "string" },
+        "reviewedAt": { "type": "string" },
+        "reviewedBy": { "type": "string", "maxLength": 100 },
+        "adminNotes": { "type": "string", "maxLength": 1000 }
+      },
+      "required": ["fullName", "email", "company", "status", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/inquiries/{inquiryId}": {
+      "schema": "Inquiry",
+      "description": "Collection of incoming prospective client inquiries and discovery bookings"
+    },
+    "/projects/{projectId}": {
+      "schema": "ClientProject",
+      "description": "Collection of active and completed client delivery projects"
+    },
+    "/accountRequests/{requestId}": {
+      "schema": "AccountRequest",
+      "description": "Collection of client portal access and account signup requests awaiting admin review"
+    }
+  }
+}

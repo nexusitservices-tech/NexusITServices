@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <!-- 1. Homepage / Main Hub -->
+  <url>
+    <loc>https://web.nexus.ae.org/</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://web.nexus.ae.org/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://web.nexus.ae.org/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://web.nexus.ae.org/" />
+    <image:image>
+      <image:loc>https://web.nexus.ae.org/logo.png</image:loc>
+      <image:title>Nexus IT Services - Dubai Enterprise IT, Cloud &amp; AI Solutions</image:title>
+      <image:caption>Official corporate emblem of Nexus IT Services in Dubai, UAE</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://web.nexus.ae.org/herobackground.jpg</image:loc>
+      <image:title>Nexus IT Dubai Cloud Infrastructure &amp; Innovation Center</image:title>
+      <image:caption>High-tech cloud network and enterprise technology headquarters in Dubai</image:caption>
+    </image:image>
+  </url>
+
+  <!-- 2. Services Overview Catalog -->
+  <url>
+    <loc>https://web.nexus.ae.org/services</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://web.nexus.ae.org/services" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://web.nexus.ae.org/services" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://web.nexus.ae.org/services" />
+    <image:image>
+      <image:loc>https://web.nexus.ae.org/logo.png</image:loc>
+      <image:title>Nexus IT Enterprise Services Catalog</image:title>
+    </image:image>
+  </url>
+
+  <!-- 3. Solutions Overview Catalog -->
+  <url>
+    <loc>https://web.nexus.ae.org/solutions</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://web.nexus.ae.org/solutions" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://web.nexus.ae.org/solutions" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://web.nexus.ae.org/solutions" />
+  </url>
+
+  <!-- 4. Dedicated Solution: IT Infrastructure & Sovereign Cloud -->
+  <url>
+    <loc>https://web.nexus.ae.org/it-services</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://web.nexus.ae.org/it-services" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://web.nexus.ae.org/it-services" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://web.nexus.ae.org/it-services" />
+    <image:image>
+      <image:loc>https://web.nexus.ae.org/it-services.png</image:loc>
+      <image:title>Managed Enterprise IT Infrastructure &amp; Cloud Dubai</image:title>
+      <image:caption>Sovereign AWS me-central-1 and Azure UAE North in-country cloud data residency</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://web.nexus.ae.org/solutions/it-services</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://web.nexus.ae.org/solutions/it-services" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://web.nexus.ae.org/solutions/it-services" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://web.nexus.ae.org/solutions/it-services" />
+  </url>
+
+  <url>
+    <loc>https://web.nexus.ae.org/services/it-services</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://web.nexus.ae.org/services/it-services" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://web.nexus.ae.org/services/it-services" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://web.nexus.ae.org/services/it-services" />
+  </url>
+
+  <!-- 5. Dedicated Solution: Custom Software & Enterprise Web Platforms -->
+  <url>
+    <loc>https://web.nexus.ae.org/software-development</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://web.nexus.ae.org/software-development" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://web.nexus.ae.org/software-development" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://web.nexus.ae.org/software-development" />
+    <image:image>
+      <image:loc>https://web.nexus.ae.org/software-development.png</image:loc>
+      <image:title>Custom Software &amp; Web Application Engineering UAE</image:title>
+      <image:caption>Bespoke ERP, CRM, and bilingual Arabic SaaS engineering for GCC corporations</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://web.nexus.ae.org/solutions/software-development</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://web.nexus.ae.org/solutions/software-development" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://web.nexus.ae.org/solutions/software-development" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://web.nexus.ae.org/solutions/software-development" />
+  </url>
+
+  <url>
+    <loc>https://web.nexus.ae.org/services/software-development</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://web.nexus.ae.org/services/software-development" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://web.nexus.ae.org/services/software-development" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://web.nexus.ae.org/services/software-development" />
+  </url>
+
+  <!-- 6. Solution: Enterprise AI Tools & Autonomous Workflows -->
+  <url>
+    <loc>https://web.nexus.ae.org/solutions/ai-automation</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://web.nexus.ae.org/solutions/ai-automation" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://web.nexus.ae.org/solutions/ai-automation" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://web.nexus.ae.org/solutions/ai-automation" />
+  </url>
+
+  <url>
+    <loc>https://web.nexus.ae.org/services/ai-automation</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://web.nexus.ae.org/services/ai-automation" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://web.nexus.ae.org/services/ai-automation" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://web.nexus.ae.org/services/ai-automation" />
+  </url>
+
+  <!-- 7. Solution: Business Adverts, 3D Assets & Creative Media -->
+  <url>
+    <loc>https://web.nexus.ae.org/solutions/creative-services</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://web.nexus.ae.org/solutions/creative-services" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://web.nexus.ae.org/solutions/creative-services" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://web.nexus.ae.org/solutions/creative-services" />
+  </url>
+
+  <url>
+    <loc>https://web.nexus.ae.org/services/creative-services</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://web.nexus.ae.org/services/creative-services" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://web.nexus.ae.org/services/creative-services" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://web.nexus.ae.org/services/creative-services" />
+  </url>
+
+  <!-- 8. Solution: Technology Advisory & Fractional CTO -->
+  <url>
+    <loc>https://web.nexus.ae.org/solutions/consulting</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://web.nexus.ae.org/solutions/consulting" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://web.nexus.ae.org/solutions/consulting" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://web.nexus.ae.org/solutions/consulting" />
+  </url>
+
+  <url>
+    <loc>https://web.nexus.ae.org/services/consulting</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://web.nexus.ae.org/services/consulting" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://web.nexus.ae.org/services/consulting" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://web.nexus.ae.org/services/consulting" />
+  </url>
+
+  <!-- 9. About Nexus IT Services Dubai -->
+  <url>
+    <loc>https://web.nexus.ae.org/about</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://web.nexus.ae.org/about" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://web.nexus.ae.org/about" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://web.nexus.ae.org/about" />
+  </url>
+
+  <!-- 10. Case Studies & Proven Client Deployments -->
+  <url>
+    <loc>https://web.nexus.ae.org/case-studies</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://web.nexus.ae.org/case-studies" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://web.nexus.ae.org/case-studies" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://web.nexus.ae.org/case-studies" />
+  </url>
+
+  <!-- 11. Interactive Enterprise Cost Estimator -->
+  <url>
+    <loc>https://web.nexus.ae.org/estimator</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://web.nexus.ae.org/estimator" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://web.nexus.ae.org/estimator" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://web.nexus.ae.org/estimator" />
+  </url>
+
+  <!-- 12. Dubai Head Office & 24/7 Rapid Dispatch Contact -->
+  <url>
+    <loc>https://web.nexus.ae.org/contact</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://web.nexus.ae.org/contact" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://web.nexus.ae.org/contact" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://web.nexus.ae.org/contact" />
+  </url>
+
+  <!-- 13. UAE Careers & Engineering Positions -->
+  <url>
+    <loc>https://web.nexus.ae.org/careers</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://web.nexus.ae.org/careers" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://web.nexus.ae.org/careers" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://web.nexus.ae.org/careers" />
+  </url>
+
+  <!-- 14. Frequently Asked Questions & Enterprise SLAs -->
+  <url>
+    <loc>https://web.nexus.ae.org/faq</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://web.nexus.ae.org/faq" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://web.nexus.ae.org/faq" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://web.nexus.ae.org/faq" />
+  </url>
+
+  <!-- 15. Client & Partner Portal Access -->
+  <url>
+    <loc>https://web.nexus.ae.org/portal</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://web.nexus.ae.org/portal" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://web.nexus.ae.org/portal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://web.nexus.ae.org/portal" />
+  </url>
+
+  <!-- 16. Privacy Policy (UAE Decree Law No. 45 on Personal Data Protection) -->
+  <url>
+    <loc>https://web.nexus.ae.org/privacy</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://web.nexus.ae.org/privacy" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://web.nexus.ae.org/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://web.nexus.ae.org/privacy" />
+  </url>
+
+  <!-- 17. Terms of Service & Enterprise SLA Agreements -->
+  <url>
+    <loc>https://web.nexus.ae.org/terms</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://web.nexus.ae.org/terms" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://web.nexus.ae.org/terms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://web.nexus.ae.org/terms" />
+  </url>
+
+</urlset>

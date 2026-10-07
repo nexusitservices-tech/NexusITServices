@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trav — Begin Your Next Big Adventure</title>
+  
+  <!-- Inter Font from Google Fonts (weights: 300, 400, 500, 600, 700) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    @keyframes pinDrop {
+      0% {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes wordFadeSlideUp {
+      0% {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes buttonFadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-pin-drop {
+      opacity: 0;
+      animation: pinDrop 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+    }
+
+    .word-wrap {
+      display: inline-block;
+      opacity: 0;
+      animation: wordFadeSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .animate-hero-btn {
+      opacity: 0;
+      animation: buttonFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 2.5s forwards;
+    }
+
+    .hero-btn-glow {
+      transition: all 0.3s ease;
+    }
+
+    .hero-btn-glow:hover {
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.7);
+      transform: scale(1.05);
+    }
+    
+    .hero-btn-glow:active {
+      transform: scale(0.97);
+    }
+  </style>
+</head>
+<body class="min-h-screen text-white bg-black font-sans relative overflow-x-hidden selection:bg-white selection:text-black">
+
+  <!-- ====================================================================
+       BACKGROUND VIDEO & OVERLAY
+       - Fixed, fullscreen background layer (z-index: -1, object-fit: cover)
+       - Exact video URL
+       - Absolute overlay with bg-black/30
+       ==================================================================== -->
+  <video
+    autoplay
+    muted
+    loop
+    playsinline
+    class="fixed inset-0 w-full h-full object-cover -z-10 pointer-events-none"
+    src="https://cdn.sceneai.art/Hero%20Section%20Video/0519be39-d8d1-48a5-84ee-f8a1ec038cd6.mp4"
+  ></video>
+  <div class="fixed inset-0 bg-black/30 -z-10 pointer-events-none"></div>
+
+  <!-- ====================================================================
+       HEADER & NAVIGATION
+       - Absolute positioned at top (z-index: 10)
+       - Padding: px-6 py-6 md:px-16 md:py-10
+       - Left: Abstract globe SVG in w-8 h-8 rounded-full container + "Trav"
+       - Right: Desktop nav links "Home, Our Story, FAQ, Policies"
+       ==================================================================== -->
+  <header class="absolute top-0 left-0 w-full z-10 px-6 py-6 md:px-16 md:py-10 flex items-center justify-between">
+    <!-- Left Side: Logo -->
+    <a href="#" class="flex items-center gap-3 group">
+      <div class="w-8 h-8 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+        <svg 
+          class="w-4 h-4 text-white" 
+          viewBox="0 0 24 24" 
+          fill="none" 
+          stroke="currentColor" 
+          stroke-width="2" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"
+        >
+          <circle cx="12" cy="12" r="10" />
+          <line x1="2" y1="12" x2="22" y2="12" />
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+        </svg>
+      </div>
+      <span class="font-medium text-[16px] tracking-wide text-white">Trav</span>
+    </a>
+
+    <!-- Right Side: Desktop Nav (Hidden on mobile) -->
+    <nav class="hidden md:flex items-center space-x-10">
+      <a href="#home" class="font-medium text-[14px] text-white/95 hover:text-white transition-colors">Home</a>
+      <a href="#our-story" class="font-medium text-[14px] text-white/95 hover:text-white transition-colors">Our Story</a>
+      <a href="#faq" class="font-medium text-[14px] text-white/95 hover:text-white transition-colors">FAQ</a>
+      <a href="#policies" class="font-medium text-[14px] text-white/95 hover:text-white transition-colors">Policies</a>
+    </nav>
+
+    <!-- Mobile Nav Trigger -->
+    <button 
+      id="mobileMenuBtn" 
+      class="md:hidden text-white p-2 focus:outline-none cursor-pointer"
+      aria-label="Open Navigation Menu"
+    >
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </header>
+
+  <!-- Mobile Menu Overlay -->
+  <div 
+    id="mobileMenuOverlay" 
+    class="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl hidden flex-col items-center justify-center space-y-8"
+  >
+    <button 
+      id="closeMenuBtn" 
+      class="absolute top-6 right-6 text-white p-3 cursor-pointer"
+      aria-label="Close Navigation Menu"
+    >
+      <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+    <a href="#home" class="mobile-nav-link font-medium text-2xl text-white/95 hover:text-white transition-colors">Home</a>
+    <a href="#our-story" class="mobile-nav-link font-medium text-2xl text-white/95 hover:text-white transition-colors">Our Story</a>
+    <a href="#faq" class="mobile-nav-link font-medium text-2xl text-white/95 hover:text-white transition-colors">FAQ</a>
+    <a href="#policies" class="mobile-nav-link font-medium text-2xl text-white/95 hover:text-white transition-colors">Policies</a>
+  </div>
+
+  <!-- ====================================================================
+       HERO MAIN CONTENT
+       - Centered container, max-w-4xl, min-h-screen
+       - Animated Map Pin icon
+       - Headline & Subheading with word-by-word reveal
+       - Download Now CTA button with glow
+       ==================================================================== -->
+  <main class="relative z-10 w-full min-h-screen flex flex-col items-center justify-center text-center px-6">
+    <div class="max-w-4xl w-full mx-auto flex flex-col items-center justify-center">
+      
+      <!-- White SVG Map Pin icon with drop shadow -->
+      <div class="mb-6 animate-pin-drop">
+        <svg 
+          class="w-9 h-9 text-white filter drop-shadow-[0_4px_10px_rgba(0,0,0,0.6)]" 
+          viewBox="0 0 24 24" 
+          fill="none" 
+          stroke="currentColor" 
+          stroke-width="2" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"
+        >
+          <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+          <circle cx="12" cy="10" r="3" />
+        </svg>
+      </div>
+
+      <!-- Main Heading: 60px on desktop (md:text-[60px]), font-semibold, tracking-[-0.02em], leading-[1.1] -->
+      <h1 class="text-4xl sm:text-5xl md:text-[60px] font-semibold tracking-[-0.02em] leading-[1.1] text-white max-w-3xl">
+        <span class="word-wrap" style="animation-delay: 0.50s;">Begin</span>
+        <span class="word-wrap" style="animation-delay: 0.62s;">Your</span>
+        <span class="word-wrap" style="animation-delay: 0.74s;">Next</span>
+        <br class="hidden md:block" />
+        <span class="word-wrap" style="animation-delay: 0.86s;">Big</span>
+        <span class="word-wrap" style="animation-delay: 0.98s;">Adventure</span>
+      </h1>
+
+      <!-- Subheading: 16px or 17px, font-medium, text-white/95, leading-[1.6], max-w-[480px] -->
+      <p class="text-[16px] md:text-[17px] font-medium text-white/95 leading-[1.6] max-w-[480px] mx-auto mt-6 mb-8 text-center">
+        <span class="word-wrap" style="animation-delay: 1.45s;">Discover</span>
+        <span class="word-wrap" style="animation-delay: 1.51s;">hidden</span>
+        <span class="word-wrap" style="animation-delay: 1.57s;">gems,</span>
+        <span class="word-wrap" style="animation-delay: 1.63s;">plan</span>
+        <span class="word-wrap" style="animation-delay: 1.69s;">unforgettable</span>
+        <span class="word-wrap" style="animation-delay: 1.75s;">trips,</span>
+        <span class="word-wrap" style="animation-delay: 1.81s;">and</span>
+        <br class="hidden md:block" />
+        <span class="word-wrap" style="animation-delay: 1.87s;">explore</span>
+        <span class="word-wrap" style="animation-delay: 1.93s;">the</span>
+        <span class="word-wrap" style="animation-delay: 1.99s;">world</span>
+        <span class="word-wrap" style="animation-delay: 2.05s;">—</span>
+        <span class="word-wrap" style="animation-delay: 2.11s;">all</span>
+        <span class="word-wrap" style="animation-delay: 2.17s;">in</span>
+        <span class="word-wrap" style="animation-delay: 2.23s;">one</span>
+        <span class="word-wrap" style="animation-delay: 2.29s;">seamless</span>
+        <span class="word-wrap" style="animation-delay: 2.35s;">app.</span>
+      </p>
+
+      <!-- CTA Button: "Download Now", white bg, black text, rounded-full, font-medium, 15px with subtle white glow hover -->
+      <div class="animate-hero-btn">
+        <button class="bg-white text-black rounded-full font-medium text-[15px] px-8 py-3.5 hero-btn-glow cursor-pointer">
+          Download Now
+        </button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Vanilla JavaScript for Interactive State -->
+  <script>
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const closeBtn = document.getElementById('closeMenuBtn');
+    const menuOverlay = document.getElementById('mobileMenuOverlay');
+    const navLinks = document.querySelectorAll('.mobile-nav-link');
+
+    function openMenu() {
+      menuOverlay.classList.remove('hidden');
+      menuOverlay.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+      menuOverlay.classList.add('hidden');
+      menuOverlay.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+
+    if (mobileBtn && closeBtn && menuOverlay) {
+      mobileBtn.addEventListener('click', openMenu);
+      closeBtn.addEventListener('click', closeMenu);
+      navLinks.forEach(link => link.addEventListener('click', closeMenu));
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,474 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,300,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', 'Satoshi', system-ui, -apple-system, sans-serif;
+  --font-display: 'Inter', 'Satoshi', system-ui, -apple-system, sans-serif;
+  --font-hand: 'Caveat', cursive;
+  
+  --animate-shimmer: shimmer 2s linear infinite;
+  --animate-marquee: marquee 35s linear infinite;
+
+  @keyframes shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  /* NEXUS IT Services Design System Palette */
+  /* Primary Colors */
+  --color-nexus-navy: #07142F;
+  --color-nexus-deep: #0B2144;
+  --color-nexus-electric: #1677FF;
+  --color-nexus-cyan: #39B9FF;
+
+  /* NX Palette Specifications */
+  --color-nx-midnight: #07142F;
+  --color-nx-deep: #0B2144;
+  --color-nx-surface: #0E254E;
+  --color-nx-blue: #1677FF;
+  --color-nx-cyan: #39B9FF;
+
+  /* Supporting Colors */
+  --color-nexus-bg: #F5F8FC;
+  --color-nexus-white: #FFFFFF;
+  --color-nexus-muted: #66748B;
+  --color-nexus-border: #DCE6F0;
+
+  /* Legacy aliases for backward compatibility */
+  --color-nexus-ink: #07142F;
+  --color-nexus-surface: #0B2144;
+  --color-nexus-brand: #1677FF;
+  --color-nexus-brand-dark: #0B2144;
+  --color-nexus-brand-deep: #07142F;
+  --color-nexus-brand-light: #F5F8FC;
+  --color-nexus-brand-border: #DCE6F0;
+  --color-nexus-blue: #1677FF;
+  --color-nexus-blue-bright: #39B9FF;
+  --color-nexus-light-canvas: #F5F8FC;
+  --color-nexus-light-surface: #FFFFFF;
+  --color-nexus-light-border: #DCE6F0;
+}
+
+@layer base {
+  :root {
+    --background: #F5F8FC;
+    --foreground: #07142F;
+    --card: #FFFFFF;
+    --card-foreground: #07142F;
+    --popover: #FFFFFF;
+    --popover-foreground: #07142F;
+    --primary: #1677FF;
+    --primary-foreground: #FFFFFF;
+    --secondary: #0B2144;
+    --secondary-foreground: #FFFFFF;
+    --muted: #F5F8FC;
+    --muted-foreground: #66748B;
+    --accent: #39B9FF;
+    --accent-foreground: #07142F;
+    --destructive: #EF4444;
+    --destructive-foreground: #FFFFFF;
+    --success: #10B981;
+    --success-foreground: #FFFFFF;
+    --warning: #F59E0B;
+    --warning-foreground: #FFFFFF;
+    --info: #1677FF;
+    --info-foreground: #FFFFFF;
+    --border: #DCE6F0;
+    --input: #DCE6F0;
+    --ring: #1677FF;
+    --radius: 0.375rem;
+  }
+ 
+  .dark {
+    --background: #07142F;
+    --foreground: #F5F8FC;
+    --card: #0B2144;
+    --card-foreground: #F5F8FC;
+    --popover: #0B2144;
+    --popover-foreground: #F5F8FC;
+    --primary: #1677FF;
+    --primary-foreground: #FFFFFF;
+    --secondary: #07142F;
+    --secondary-foreground: #F5F8FC;
+    --muted: #0B2144;
+    --muted-foreground: #66748B;
+    --accent: #39B9FF;
+    --accent-foreground: #07142F;
+    --destructive: #EF4444;
+    --destructive-foreground: #FFFFFF;
+    --border: rgba(220, 230, 240, 0.15);
+    --input: rgba(220, 230, 240, 0.15);
+    --ring: #39B9FF;
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    width: 100%;
+    -webkit-text-size-adjust: 100%;
+  }
+  * {
+    @apply border-[color:var(--border)];
+  }
+  body {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+    @apply bg-[color:var(--background)] text-[color:var(--foreground)] antialiased selection:bg-[color:var(--primary)] selection:text-[color:var(--primary-foreground)];
+  }
+  #root {
+    overflow-x: hidden;
+    width: 100%;
+  }
+}
+
+/* Custom Scrollbar for a premium feel */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-foreground);
+}
+
+/* Hardware-accelerated infinite marquee with seamless loop and pause-on-hover */
+@keyframes marquee-scroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-marquee-smooth {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 36s linear infinite;
+  will-change: transform;
+}
+
+.marquee-container:hover .animate-marquee-smooth,
+.animate-marquee-smooth:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee-smooth {
+    animation: none;
+    overflow-x: auto;
+  }
+}
+
+/* Multimillion-dollar Liquid-Glass Skeleton Shimmer */
+.skeleton-shimmer {
+  position: relative;
+  overflow: hidden;
+  background-color: #F1F5F9;
+}
+.skeleton-shimmer::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.65) 30%,
+    rgba(255, 255, 255, 0.9) 50%,
+    rgba(255, 255, 255, 0.65) 70%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: skeleton-shimmer-sweep 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  content: '';
+}
+
+@keyframes skeleton-shimmer-sweep {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Morphy interactive surface elevation */
+.morph-interactive {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+              border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, box-shadow;
+}
+
+/* ========================================================
+   NEXUS VISUAL DESIGN SYSTEM — ARCHITECTURAL UTILITIES
+   Theme: Enterprise Technology + UAE Corporate Sophistication
+   ======================================================== */
+
+/* Thin Technical Lines */
+.nexus-line-x {
+  height: 1px;
+  background-color: #DCE6F0;
+  width: 100%;
+}
+
+.nexus-line-y {
+  width: 1px;
+  background-color: #DCE6F0;
+  height: 100%;
+}
+
+.nexus-border-hairline {
+  border: 1px solid #DCE6F0;
+}
+
+.nexus-border-hairline-dark {
+  border: 1px solid rgba(220, 230, 240, 0.12);
+}
+
+/* Subtle Architectural Grids */
+.nexus-grid-light {
+  background-image: 
+    linear-gradient(to right, rgba(220, 230, 240, 0.6) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(220, 230, 240, 0.6) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.nexus-grid-dots-light {
+  background-image: radial-gradient(rgba(11, 33, 68, 0.10) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.nexus-grid-dark {
+  background-image: 
+    linear-gradient(to right, rgba(220, 230, 240, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(220, 230, 240, 0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.nexus-grid-dots-dark {
+  background-image: radial-gradient(rgba(57, 185, 255, 0.15) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Data-Flow Patterns */
+.nexus-dataflow-h {
+  position: relative;
+  overflow: hidden;
+}
+.nexus-dataflow-h::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(22, 119, 255, 0.18), transparent);
+  animation: nexus-dataflow-pulse 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes nexus-dataflow-pulse {
+  0% { left: -100%; }
+  50%, 100% { left: 140%; }
+}
+
+/* Architectural Geometry Corner Accents */
+.nexus-corner-bracket {
+  position: relative;
+}
+.nexus-corner-bracket::before,
+.nexus-corner-bracket::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  pointer-events: none;
+}
+.nexus-corner-bracket::before {
+  top: -1px;
+  left: -1px;
+  border-top: 2px solid #1677FF;
+  border-left: 2px solid #1677FF;
+}
+.nexus-corner-bracket::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 2px solid #1677FF;
+  border-right: 2px solid #1677FF;
+}
+
+/* Soft Blue Lighting (Glows without neon excess) */
+.nexus-glow-soft {
+  box-shadow: 0 0 32px -8px rgba(22, 119, 255, 0.18);
+}
+
+.nexus-glow-radial {
+  background: radial-gradient(60% 60% at 50% 0%, rgba(22, 119, 255, 0.08) 0%, rgba(7, 20, 47, 0) 100%);
+}
+
+.nexus-glow-radial-dark {
+  background: radial-gradient(70% 70% at 50% -10%, rgba(57, 185, 255, 0.12) 0%, rgba(11, 33, 68, 0) 100%);
+}
+
+/* Dark Technology Surfaces */
+.nexus-surface-dark {
+  background-color: #07142F;
+  color: #FFFFFF;
+  border: 1px solid rgba(220, 230, 240, 0.10);
+}
+
+.nexus-surface-deep {
+  background-color: #0B2144;
+  color: #FFFFFF;
+  border: 1px solid rgba(220, 230, 240, 0.12);
+}
+
+/* Clean White Sections */
+.nexus-surface-white {
+  background-color: #FFFFFF;
+  color: #07142F;
+  border: 1px solid #DCE6F0;
+}
+
+.nexus-surface-light {
+  background-color: #F5F8FC;
+  color: #07142F;
+}
+
+/* Subtle Depth System */
+.nexus-depth-1 {
+  box-shadow: 0 1px 3px 0 rgba(7, 20, 47, 0.04), 0 1px 2px -1px rgba(7, 20, 47, 0.04);
+}
+
+.nexus-depth-2 {
+  box-shadow: 0 4px 14px -2px rgba(7, 20, 47, 0.06), 0 2px 6px -2px rgba(7, 20, 47, 0.04);
+}
+
+.nexus-depth-3 {
+  box-shadow: 0 12px 28px -6px rgba(7, 20, 47, 0.08), 0 4px 10px -3px rgba(7, 20, 47, 0.04);
+}
+
+/* Controlled Glass Effects */
+.nexus-glass-light {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(220, 230, 240, 0.8);
+}
+
+.nexus-glass-dark {
+  background: rgba(7, 20, 47, 0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(220, 230, 240, 0.12);
+}
+
+/* Custom Cinematic Hero Keyframe Animations */
+@keyframes pinDrop {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes wordFadeSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes buttonFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-pin-drop {
+  opacity: 0;
+  animation: pinDrop 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+}
+
+.word-wrap {
+  display: inline-block;
+  opacity: 0;
+  animation: wordFadeSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-hero-btn {
+  opacity: 0;
+  animation: buttonFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 2.5s forwards;
+}
+
+.hero-btn-glow:hover {
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.7);
+}
+
+/* NX Glass Surface and Link Underline Utilities */
+.nx-surface {
+  background: rgba(7, 20, 47, 0.92);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.55);
+}
+
+.nx-link-underline {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.nx-link-underline::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 1.5px;
+  bottom: -2px;
+  left: 0;
+  background-color: currentColor;
+  transform-origin: bottom right;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nx-link-underline:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+

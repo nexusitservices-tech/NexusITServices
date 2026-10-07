@@ -1,0 +1,36 @@
+# OpenWA Docker Compose - Production Setup for Nexus IT Services
+# Official repository: https://github.com/rmyndharis/OpenWA.git
+services:
+  openwa-api:
+    image: ghcr.io/rmyndharis/openwa:latest
+    container_name: nexus-openwa-gateway
+    restart: unless-stopped
+    ports:
+      - "2785:2785"
+    environment:
+      - NODE_ENV=production
+      - PORT=2785
+      - API_PREFIX=/api
+      - DB_TYPE=sqlite
+      - SQLITE_DATABASE=./data/openwa.sqlite
+      - SESSIONS_DIR=./data/sessions
+      - AUTH_DIR=./data/auth
+      - MEDIA_DIR=./data/media
+      - DEFAULT_ENGINE=baileys
+      - API_MASTER_KEY=nexus_openwa_secure_key_2026_dxb
+      - ALLOW_DEV_API_KEY=true
+      - ENABLE_SWAGGER=true
+      - RATE_LIMIT_ENABLED=true
+      - RATE_LIMIT_MAX_PER_MINUTE=60
+    volumes:
+      - openwa-data:/app/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:2785/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  openwa-data:
+    name: nexus-openwa-data
