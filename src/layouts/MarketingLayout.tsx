@@ -1,41 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import { 
-  Menu, X, Phone, MessageCircle, Globe, Shield, MapPin, 
-  ArrowRight, ArrowUpRight, Sparkles, ChevronDown, ChevronRight, 
-  Lock, ShieldCheck, Mail, Clock, ExternalLink, Building2 
-} from 'lucide-react';
+import { Menu, X, Phone, MessageCircle, Globe, Shield, MapPin, ArrowRight, ChevronDown, ChevronRight, Lock, ShieldCheck, Mail, Clock, ExternalLink, Building2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { AnimatePresence, motion } from 'framer-motion';
 import WhatsAppWidget from '@/components/WhatsAppWidget';
 import { CurrencyProvider, useCurrency } from '@/context/CurrencyContext';
 import PageLoader from '@/components/ui/PageLoader';
-import { nav, siteMeta } from '@/content/site.js';
 
 function HeaderNav() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [mega, setMega] = useState<string | null>(null);
+  const [servicesExpanded, setServicesExpanded] = useState(true);
   const location = useLocation();
+  const { currency, setCurrency } = useCurrency();
 
-  // Scroll listener: toggles scrolled glass state past 16px (passive listener, cleaned up)
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 16);
+      const scrollPos = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
+      setScrolled(scrollPos > 8);
     };
-    window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    document.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
-  // Route changes auto-close both the mega menu and the mobile drawer
   useEffect(() => {
-    setMega(null);
     setMobileMenuOpen(false);
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
-  // Lock body scroll when mobile drawer is open (restored on close/unmount)
+  // Lock body scroll when mobile drawer is open
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = 'hidden';
@@ -47,275 +45,425 @@ function HeaderNav() {
     };
   }, [mobileMenuOpen]);
 
-  const solutionsItem = nav.find((item) => item.mega === 'solutions');
+  const navLinks = [
+    { label: 'Home', path: '/' },
+    { 
+      label: 'Services', 
+      path: '/services',
+      subLinks: [
+        { label: 'IT Services', path: '/services/it-services' },
+        { label: 'Software & Web', path: '/services/software-development' },
+        { label: 'AI & Automation', path: '/services/ai-automation' },
+        { label: 'Multimedia & Creative', path: '/services/creative-services' },
+        { label: 'Business Technology Consulting', path: '/services/consulting' },
+      ]
+    },
+    { label: 'Solutions', path: '/solutions' },
+    { label: 'Industries', path: '/industries' },
+    { label: 'How We Work', path: '/how-we-work' },
+    { label: 'About', path: '/about' },
+    { label: 'Insights', path: '/insights' },
+    { label: 'Contact', path: '/contact' },
+  ];
 
   return (
     <>
-      {/* Shell: Fixed, full-width, z-50. Transparent over hero; switches on scroll past 16px to bg-nx-midnight/80 backdrop-blur-xl with hairline border-white/10 bottom border */}
+      {/* Main Glassmorphic Elevated Header (MUI SaaS + Once UI Style) */}
       <header
         className={cn(
-          "fixed top-0 left-0 right-0 w-full z-50 transition-all duration-500",
+          "sticky top-0 w-full z-50 transition-all duration-300 ease-in-out",
           scrolled 
-            ? "bg-nx-midnight/80 backdrop-blur-xl border-b border-white/10 shadow-lg shadow-black/25" 
-            : "bg-transparent border-b border-transparent"
+            ? "bg-white/95 backdrop-blur-xl border-b border-slate-200/90 shadow-[0_4px_24px_-4px_rgba(15,23,42,0.08),0_1px_2px_rgba(0,0,0,0.03)] py-2 sm:py-2.5" 
+            : "bg-white/85 backdrop-blur-md border-b border-slate-200/60 shadow-none py-3 sm:py-3.5"
         )}
-        onMouseLeave={() => setMega(null)}
       >
-        {/* Inner bar: h-16 mobile / h-20 desktop, three-column flex: Logo left, primary nav center, utility actions right */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 lg:h-20 flex items-center justify-between gap-4 relative">
+        {/* Subtle luminous accent bar when sticky */}
+        <div 
+          className={cn(
+            "absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#0046AF]/70 to-transparent transition-opacity duration-300 pointer-events-none",
+            scrolled ? "opacity-100" : "opacity-0"
+          )} 
+        />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-3 sm:gap-4 relative">
+          {/* Zone 1: Left Brand Identity */}
+          <div className="flex items-center min-w-[130px] sm:min-w-[160px] xl:min-w-[190px] shrink-0">
+            <Link to="/" className="flex items-center group">
+              <div 
+                id="header-logo-container"
+                className="flex items-center transition-all duration-300 group-hover:opacity-85"
+              >
+                <img 
+                  id="header-logo-img"
+                  src="/logo.png" 
+                  alt="Nexus IT Services Logo" 
+                  className={cn(
+                    "w-auto object-contain transition-all duration-300",
+                    scrolled ? "h-7 sm:h-8" : "h-8 sm:h-9"
+                  )} 
+                />
+              </div>
+            </Link>
+          </div>
           
-          {/* Column 1: Logo left */}
-          <Link to="/" className="flex items-center group shrink-0">
-            <div 
-              id="header-logo-container"
-              className="flex items-center transition-opacity duration-300 group-hover:opacity-85"
-            >
-              <img 
-                id="header-logo-img"
-                src="/logo.png" 
-                alt="Nexus IT Services Logo" 
-                className="h-8 sm:h-9 w-auto object-contain brightness-0 invert" 
-              />
-            </div>
-          </Link>
-          
-          {/* Column 2: Primary nav center */}
-          <nav className="hidden lg:flex items-center gap-6 xl:gap-8 absolute left-1/2 -translate-x-1/2">
-            {nav.map((item) => {
-              const isActive = location.pathname === item.href || (item.href !== '/' && location.pathname.startsWith(item.href));
-              const isMegaOpen = item.mega && mega === item.mega;
+          {/* Zone 2: Centered Segmented Navigation Control */}
+          <nav className={cn(
+            "hidden lg:flex items-center justify-center gap-0.5 xl:gap-1 p-1 rounded-full border transition-all duration-300 backdrop-blur-md shadow-xs mx-auto",
+            scrolled
+              ? "bg-slate-100/90 border-slate-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
+              : "bg-slate-100/75 border-slate-200/60"
+          )}>
+            {navLinks.map((item) => {
+              const isActive = location.pathname === item.path || (item.subLinks && item.subLinks.some(sub => location.pathname === sub.path || location.pathname.startsWith(sub.path)));
+              
+              if (item.subLinks) {
+                return (
+                  <div key={item.path} className="relative group">
+                    <Link
+                      to={item.path}
+                      className={cn(
+                        "flex items-center gap-1 px-2.5 xl:px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-200 relative whitespace-nowrap",
+                        isActive
+                          ? "bg-white text-[#0046AF] shadow-xs border border-slate-200/80"
+                          : "text-slate-600 hover:text-[#0046AF] hover:bg-white/80"
+                      )}
+                    >
+                      <span>{item.label}</span>
+                      <ChevronDown className="w-3 h-3 text-slate-400 group-hover:text-[#0046AF] transition-transform duration-200 group-hover:rotate-180" />
+                    </Link>
+                    <div className="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 pointer-events-none group-hover:pointer-events-auto">
+                      <div className="bg-white rounded-2xl shadow-xl border border-slate-200/80 p-2 flex flex-col min-w-[250px]">
+                        <div className="px-3 py-1.5 mb-1 text-[10px] font-bold uppercase tracking-wider text-slate-400 border-b border-slate-100">
+                          Services Sub Menu
+                        </div>
+                        {item.subLinks.map(subItem => (
+                          <Link 
+                            key={subItem.path} 
+                            to={subItem.path}
+                            className="px-3 py-2 text-xs font-semibold text-slate-700 hover:text-[#0046AF] hover:bg-blue-50/70 rounded-xl whitespace-nowrap transition-colors flex items-center justify-between group/sub"
+                          >
+                            <span>{subItem.label}</span>
+                            <ArrowRight className="w-3 h-3 opacity-0 -translate-x-1 group-hover/sub:opacity-100 group-hover/sub:translate-x-0 transition-all text-[#0046AF]" />
+                          </Link>
+                        ))}
+                        <div className="mt-1 pt-1.5 border-t border-slate-100 px-1">
+                          <Link 
+                            to="/services" 
+                            className="flex items-center justify-between px-3 py-1.5 text-[11px] font-bold text-[#0046AF] hover:bg-blue-50/50 rounded-lg transition-colors"
+                          >
+                            <span>All Services Hub</span>
+                            <ChevronRight className="w-3 h-3" />
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
 
               return (
-                <div
-                  key={item.href}
-                  className="relative py-2"
-                  onMouseEnter={() => {
-                    if (item.mega) {
-                      setMega(item.mega);
-                    } else {
-                      setMega(null);
-                    }
-                  }}
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className={cn(
+                    "px-2.5 xl:px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-200 relative cursor-pointer select-none whitespace-nowrap",
+                    isActive
+                      ? "bg-white text-[#0046AF] shadow-xs border border-slate-200/80"
+                      : "text-slate-600 hover:text-[#0046AF] hover:bg-white/80 active:scale-95"
+                  )}
                 >
-                  <Link
-                    to={item.href}
-                    className={cn(
-                      "text-sm font-medium transition-colors duration-200 flex items-center gap-1.5 py-1",
-                      isActive || isMegaOpen
-                        ? "text-white font-semibold"
-                        : "text-white/70 hover:text-white"
-                    )}
-                  >
-                    <span>{item.label}</span>
-                    {item.mega && (
-                      <ChevronDown 
-                        className={cn(
-                          "w-3.5 h-3.5 transition-transform duration-200",
-                          isMegaOpen ? "rotate-180 text-white" : "text-white/50"
-                        )} 
-                      />
-                    )}
-                  </Link>
-                </div>
+                  {item.label}
+                </Link>
               );
             })}
           </nav>
 
-          {/* Column 3: Utility actions right (Client Portal + Start a Project Button + Mobile Hamburger) */}
-          <div className="flex items-center gap-4 sm:gap-6 shrink-0">
-            {/* Desktop Utility Actions */}
-            <div className="hidden lg:flex items-center gap-5">
-              {/* "Client Portal" text link with the nx-link-underline animated underline */}
-              <Link 
-                to="/portal" 
-                className="text-xs font-semibold text-white/80 hover:text-white nx-link-underline transition-colors py-1 cursor-pointer"
-              >
-                Client Portal
-              </Link>
+          {/* Zone 3: Right Header Actions: Desktop CTA & Mobile Menu Trigger */}
+          <div className="flex items-center justify-end min-w-[130px] sm:min-w-[160px] xl:min-w-[190px] gap-2.5 sm:gap-3 shrink-0">
+            <Link to="/contact" className="hidden lg:inline-flex items-center">
+              <button className={cn(
+                "bg-gradient-to-r from-[#0046AF] to-blue-600 hover:from-[#00388C] hover:to-[#0046AF] text-white rounded-full font-bold shadow-xs hover:shadow-md hover:shadow-[#0046AF]/25 transition-all duration-300 flex items-center gap-1.5 group cursor-pointer whitespace-nowrap",
+                scrolled ? "px-4 py-1.5 text-xs" : "px-4 xl:px-5 py-2 text-xs"
+              )}>
+                <span>Get in Touch</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+              </button>
+            </Link>
 
-              {/* Primary "Start a Project" Button (links to /contact) */}
-              <Link to="/contact">
-                <button className="bg-gradient-to-r from-[#1677FF] to-blue-600 hover:from-[#0B5ED7] hover:to-[#1677FF] text-white px-5 py-2.5 rounded-full text-xs font-bold shadow-lg shadow-[#1677FF]/25 hover:shadow-[#1677FF]/40 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center gap-1.5 group cursor-pointer whitespace-nowrap">
-                  <span>Start a Project</span>
-                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-                </button>
-              </Link>
-            </div>
-
-            {/* Mobile Hamburger (Menu icon) */}
+            {/* Mobile Menu Trigger */}
             <div className="flex items-center lg:hidden">
               <button 
-                type="button"
-                className="text-white/85 hover:text-white p-2 rounded-xl hover:bg-white/10 transition-colors cursor-pointer"
+                className={cn(
+                  "text-slate-700 hover:text-slate-900 rounded-xl hover:bg-slate-100 border transition-all duration-200 cursor-pointer flex items-center justify-center",
+                  scrolled ? "p-1.5 border-slate-200/90 bg-white/90 shadow-xs" : "p-2 border-slate-200/70 bg-white/70"
+                )}
                 onClick={() => setMobileMenuOpen(true)}
                 aria-label="Open Navigation Menu"
               >
-                <Menu className="w-6 h-6" />
+                <Menu className="w-5 h-5 text-slate-800" />
               </button>
             </div>
           </div>
         </div>
-
-        {/* Mega Menu: full-width nx-surface glass panel docked to header's bottom edge */}
-        <AnimatePresence>
-          {mega === 'solutions' && solutionsItem?.pillars && (
-            <motion.div
-              initial={{ opacity: 0, y: -6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
-              transition={{ duration: 0.22, ease: 'easeOut' }}
-              className="absolute top-full left-0 right-0 w-full nx-surface border-t border-white/10"
-            >
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                {/* 4-column grid (one column per solution pillar) */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                  {solutionsItem.pillars.map((pillar, idx) => (
-                    <div key={idx} className="flex flex-col">
-                      <span className="font-mono text-[10px] font-bold tracking-wider text-[#39B9FF] uppercase mb-1">
-                        {pillar.number}
-                      </span>
-                      <Link
-                        to={pillar.href}
-                        className="group/title flex items-center justify-between text-sm font-bold text-white hover:text-[#39B9FF] transition-colors mb-4 pb-2 border-b border-white/10"
-                      >
-                        <span>{pillar.title}</span>
-                        <ArrowUpRight className="w-4 h-4 text-white/50 group-hover/title:text-[#39B9FF] group-hover/title:translate-x-0.5 group-hover/title:-translate-y-0.5 transition-all" />
-                      </Link>
-                      <ul className="space-y-2.5">
-                        {pillar.services.map((service, sIdx) => (
-                          <li key={sIdx}>
-                            <Link
-                              to={service.href}
-                              className="text-xs text-white/70 hover:text-white transition-colors block py-0.5"
-                            >
-                              {service.label}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Footer row pitches the Solution Discovery tool with a "Find my solution" link */}
-                <div className="mt-8 pt-5 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
-                  <div className="flex items-center gap-2 text-white/75">
-                    <Sparkles className="w-4 h-4 text-[#39B9FF] shrink-0" />
-                    <span>Need architectural guidance tailored to your operational scale? Explore our roadmaps.</span>
-                  </div>
-                  <Link
-                    to="/estimator"
-                    className="inline-flex items-center gap-1.5 font-bold text-[#39B9FF] hover:text-white transition-colors group"
-                  >
-                    <span>Find my solution</span>
-                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-                  </Link>
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </header>
 
-      {/* Mobile Navigation Drawer:
-          A hamburger (Menu icon) opens a full-height right-side drawer (z-[60], max-w-md, bg-nx-deep) 
-          over a blurred bg-nx-midnight/90 scrim. Slide-in via translate-x over 500ms; scrim click closes.
-      */}
+      {/* Modern Slide-over Mobile Navigation Drawer (Doesn't fill whole screen, with dedicated close button) */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <>
-            {/* Blurred bg-nx-midnight/90 scrim */}
+            {/* Backdrop: partial screen blur overlay */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.2 }}
               onClick={() => setMobileMenuOpen(false)}
-              className="fixed inset-0 z-[59] bg-[#07142F]/90 backdrop-blur-md"
+              className="fixed inset-0 z-50 bg-slate-950/50 backdrop-blur-xs lg:hidden"
               aria-hidden="true"
             />
 
-            {/* Slide-over Drawer (z-[60], max-w-md, bg-nx-deep) via translate-x over 500ms */}
+            {/* Slide-over Drawer (320-340px width on right side) */}
             <motion.aside
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
-              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="fixed top-0 right-0 bottom-0 z-[60] w-full max-w-md bg-nx-deep shadow-2xl border-l border-white/10 flex flex-col text-white"
+              transition={{ type: 'spring', damping: 28, stiffness: 280 }}
+              className="fixed top-0 right-0 bottom-0 z-50 w-[84vw] max-w-[340px] bg-white shadow-2xl border-l border-slate-200/90 flex flex-col lg:hidden"
               role="dialog"
               aria-modal="true"
-              aria-label="Mobile Navigation Drawer"
+              aria-label="Mobile Navigation Menu"
             >
-              {/* Drawer Header */}
-              <div className="flex items-center justify-between px-6 py-5 border-b border-white/10 shrink-0">
-                <Link to="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2.5">
-                  <img 
-                    src="/logo.png" 
-                    alt="Nexus IT Services Logo" 
-                    className="h-8 w-auto object-contain brightness-0 invert" 
-                  />
-                  <div className="flex flex-col">
-                    <span className="text-sm font-bold text-white leading-tight">Nexus IT Services</span>
-                    <span className="text-[10px] font-mono text-white/50">FZ-LLC</span>
+              {/* Header with Title and Close Button */}
+              <div className="flex items-center justify-between px-4 py-3.5 border-b border-slate-100 bg-white shrink-0">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-7 h-7 rounded-lg flex items-center justify-center overflow-hidden shrink-0">
+                    <img 
+                      src="/logo.png" 
+                      alt="Nexus IT Services Logo" 
+                      className="w-7 h-7 object-contain" 
+                    />
                   </div>
-                </Link>
+                  <div className="flex flex-col">
+                    <span className="text-xs font-bold text-slate-900 leading-tight">Nexus IT Services</span>
+                  </div>
+                </div>
 
+                {/* Explicit Close Button */}
                 <button
-                  type="button"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="p-2 rounded-xl text-white/70 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+                  className="w-8 h-8 rounded-xl bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-600 hover:text-slate-900 flex items-center justify-center transition-all cursor-pointer"
                   aria-label="Close Navigation Menu"
                 >
-                  <X className="w-5 h-5" />
+                  <X className="w-4 h-4" />
                 </button>
               </div>
 
-              {/* Drawer Body: stacked list of nav links, Client Portal link, full-width "Start a Project" button, and tel: phone link */}
-              <div className="flex-1 overflow-y-auto px-6 py-6 flex flex-col justify-between">
-                <div className="space-y-1">
-                  {nav.map((item) => (
-                    <Link
-                      key={item.href}
-                      to={item.href}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="w-full flex items-center justify-between py-3.5 px-4 rounded-xl text-white/80 hover:text-white hover:bg-white/5 border-b border-white/5 transition-colors font-semibold text-sm group"
-                    >
-                      <span>{item.label}</span>
-                      <ArrowRight className="w-4 h-4 text-white/40 group-hover:text-[#39B9FF] group-hover:translate-x-1 transition-all" />
-                    </Link>
-                  ))}
+              {/* Scrollable Navigation Items */}
+              <div className="flex-1 overflow-y-auto px-3.5 py-3 space-y-1">
+                {/* 1. Home */}
+                <Link
+                  to="/"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={cn(
+                    "flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-colors",
+                    location.pathname === '/' 
+                      ? "bg-blue-50 text-[#0046AF]" 
+                      : "text-slate-700 hover:bg-slate-50 hover:text-slate-900"
+                  )}
+                >
+                  <span>Home</span>
+                  {location.pathname === '/' && <span className="w-1.5 h-1.5 rounded-full bg-[#0046AF]" />}
+                </Link>
 
-                  {/* Client Portal link */}
-                  <Link
-                    to="/portal"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="w-full flex items-center justify-between py-3.5 px-4 rounded-xl text-white/80 hover:text-white hover:bg-white/5 border-b border-white/5 transition-colors font-semibold text-sm group"
-                  >
-                    <span>Client Portal</span>
-                    <Lock className="w-4 h-4 text-white/40 group-hover:text-[#39B9FF] transition-colors" />
-                  </Link>
+                {/* 2. Services Collapsible Accordion */}
+                <div className="rounded-xl overflow-hidden bg-slate-50/80 border border-slate-200/70 my-1">
+                  <div className="flex items-center justify-between px-3.5 py-2">
+                    <Link
+                      to="/services"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={cn(
+                        "text-xs font-bold transition-colors flex-1",
+                        location.pathname === '/services' || location.pathname.startsWith('/services/')
+                          ? "text-[#0046AF]"
+                          : "text-slate-800 hover:text-[#0046AF]"
+                      )}
+                    >
+                      Services
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={() => setServicesExpanded(!servicesExpanded)}
+                      className="p-1 rounded-lg hover:bg-slate-200 text-slate-500 transition-colors cursor-pointer"
+                      aria-label="Toggle services list"
+                    >
+                      <ChevronDown className={cn("w-3.5 h-3.5 transition-transform duration-200", servicesExpanded ? "rotate-180" : "rotate-0")} />
+                    </button>
+                  </div>
+
+                  {servicesExpanded && (
+                    <div className="px-2.5 pb-2.5 pt-1 space-y-1 border-t border-slate-200/50">
+                      <Link
+                        to="/services/it-services"
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="flex items-center justify-between px-2.5 py-1.5 rounded-lg text-[11px] font-medium text-slate-600 hover:text-[#0046AF] hover:bg-white transition-colors"
+                      >
+                        <span>IT Services</span>
+                        <ArrowRight className="w-3 h-3 text-slate-400" />
+                      </Link>
+                      <Link
+                        to="/services/software-development"
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="flex items-center justify-between px-2.5 py-1.5 rounded-lg text-[11px] font-medium text-slate-600 hover:text-[#0046AF] hover:bg-white transition-colors"
+                      >
+                        <span>Software & Web</span>
+                        <ArrowRight className="w-3 h-3 text-slate-400" />
+                      </Link>
+                      <Link
+                        to="/services/ai-automation"
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="flex items-center justify-between px-2.5 py-1.5 rounded-lg text-[11px] font-medium text-slate-600 hover:text-[#0046AF] hover:bg-white transition-colors"
+                      >
+                        <span>AI & Automation</span>
+                        <ArrowRight className="w-3 h-3 text-slate-400" />
+                      </Link>
+                      <Link
+                        to="/services/creative-services"
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="flex items-center justify-between px-2.5 py-1.5 rounded-lg text-[11px] font-medium text-slate-600 hover:text-[#0046AF] hover:bg-white transition-colors"
+                      >
+                        <span>Multimedia & Creative</span>
+                        <ArrowRight className="w-3 h-3 text-slate-400" />
+                      </Link>
+                      <Link
+                        to="/services/consulting"
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="flex items-center justify-between px-2.5 py-1.5 rounded-lg text-[11px] font-medium text-slate-600 hover:text-[#0046AF] hover:bg-white transition-colors"
+                      >
+                        <span>Business Technology Consulting</span>
+                        <ArrowRight className="w-3 h-3 text-slate-400" />
+                      </Link>
+                    </div>
+                  )}
                 </div>
 
-                {/* Bottom cluster: full-width "Start a Project" button and tel: phone link */}
-                <div className="pt-6 border-t border-white/10 space-y-3">
-                  <Link
-                    to="/contact"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="block w-full"
-                  >
-                    <button className="w-full py-3.5 px-5 rounded-full bg-gradient-to-r from-[#1677FF] to-blue-600 hover:from-[#0B5ED7] hover:to-[#1677FF] text-white font-bold text-sm shadow-lg shadow-[#1677FF]/30 flex items-center justify-center gap-2 cursor-pointer transition-all active:scale-[0.98]">
-                      <span>Start a Project</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </button>
-                  </Link>
+                {/* 3. Solutions */}
+                <Link
+                  to="/solutions"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={cn(
+                    "flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-colors",
+                    location.pathname === '/solutions' || location.pathname.startsWith('/solutions/')
+                      ? "bg-blue-50 text-[#0046AF]" 
+                      : "text-slate-700 hover:bg-slate-50 hover:text-slate-900"
+                  )}
+                >
+                  <span>Solutions</span>
+                  {location.pathname === '/solutions' && <span className="w-1.5 h-1.5 rounded-full bg-[#0046AF]" />}
+                </Link>
 
-                  <a
-                    href="tel:+97142600000"
-                    className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-white/5 hover:bg-white/10 text-white/80 hover:text-white text-xs font-semibold transition-colors"
-                  >
-                    <Phone className="w-3.5 h-3.5 text-[#39B9FF]" />
-                    <span>+971 4 260 0000 (Dubai HQ)</span>
-                  </a>
+                {/* 4. Industries */}
+                <Link
+                  to="/industries"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={cn(
+                    "flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-colors",
+                    location.pathname === '/industries' 
+                      ? "bg-blue-50 text-[#0046AF]" 
+                      : "text-slate-700 hover:bg-slate-50 hover:text-slate-900"
+                  )}
+                >
+                  <span>Industries</span>
+                  {location.pathname === '/industries' && <span className="w-1.5 h-1.5 rounded-full bg-[#0046AF]" />}
+                </Link>
+
+                {/* 5. How We Work */}
+                <Link
+                  to="/how-we-work"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={cn(
+                    "flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-colors",
+                    location.pathname === '/how-we-work' 
+                      ? "bg-blue-50 text-[#0046AF]" 
+                      : "text-slate-700 hover:bg-slate-50 hover:text-slate-900"
+                  )}
+                >
+                  <span>How We Work</span>
+                  {location.pathname === '/how-we-work' && <span className="w-1.5 h-1.5 rounded-full bg-[#0046AF]" />}
+                </Link>
+
+                {/* 6. About */}
+                <Link
+                  to="/about"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={cn(
+                    "flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-colors",
+                    location.pathname === '/about' 
+                      ? "bg-blue-50 text-[#0046AF]" 
+                      : "text-slate-700 hover:bg-slate-50 hover:text-slate-900"
+                  )}
+                >
+                  <span>About</span>
+                  {location.pathname === '/about' && <span className="w-1.5 h-1.5 rounded-full bg-[#0046AF]" />}
+                </Link>
+
+                {/* 7. Insights */}
+                <Link
+                  to="/insights"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={cn(
+                    "flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-colors",
+                    location.pathname === '/insights' 
+                      ? "bg-blue-50 text-[#0046AF]" 
+                      : "text-slate-700 hover:bg-slate-50 hover:text-slate-900"
+                  )}
+                >
+                  <span>Insights</span>
+                  {location.pathname === '/insights' && <span className="w-1.5 h-1.5 rounded-full bg-[#0046AF]" />}
+                </Link>
+
+                {/* 8. Contact */}
+                <Link
+                  to="/contact"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={cn(
+                    "flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-colors",
+                    location.pathname === '/contact' 
+                      ? "bg-blue-50 text-[#0046AF]" 
+                      : "text-slate-700 hover:bg-slate-50 hover:text-slate-900"
+                  )}
+                >
+                  <span>Contact</span>
+                  {location.pathname === '/contact' && <span className="w-1.5 h-1.5 rounded-full bg-[#0046AF]" />}
+                </Link>
+              </div>
+
+              {/* Bottom Actions: Consultation, WhatsApp, Location */}
+              <div className="p-3.5 border-t border-slate-100 bg-slate-50/80 space-y-2 shrink-0">
+                <Link
+                  to="/contact"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block w-full"
+                >
+                  <button className="w-full py-2.5 rounded-full bg-gradient-to-r from-[#0046AF] to-blue-600 hover:from-[#00388C] hover:to-[#0046AF] text-white font-bold text-xs shadow-md shadow-[#0046AF]/20 flex items-center justify-center gap-2 cursor-pointer transition-all active:scale-[0.98]">
+                    <span>Book Dubai Consultation</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
+                </Link>
+
+                <a
+                  href="https://wa.me/971526367221"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-2 px-3 rounded-xl bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 text-xs font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                >
+                  <MessageCircle className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>WhatsApp: +971 52 636 7221</span>
+                </a>
+
+                <div className="pt-0.5 text-center">
+                  <span className="text-[10px] text-slate-400 font-medium">
+                    🇦🇪 Radiance ONE Business Center, Rigga Al Buteen, Dubai
+                  </span>
                 </div>
               </div>
             </motion.aside>
@@ -343,7 +491,7 @@ export default function MarketingLayout() {
 
   return (
     <CurrencyProvider>
-      <div className="min-h-screen flex flex-col font-sans bg-[#F8FAFC] text-slate-900 selection:bg-blue-600 selection:text-white overflow-x-hidden w-full">
+      <div className="min-h-screen flex flex-col font-sans bg-[#F8FAFC] text-slate-900 selection:bg-blue-600 selection:text-white w-full">
         {/* Multimillion-Dollar Refined PageLoader & Dynamic Route Beam */}
         <PageLoader 
           isLoading={isAppLoading} 

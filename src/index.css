@@ -33,13 +33,6 @@
   --color-nexus-electric: #1677FF;
   --color-nexus-cyan: #39B9FF;
 
-  /* NX Palette Specifications */
-  --color-nx-midnight: #07142F;
-  --color-nx-deep: #0B2144;
-  --color-nx-surface: #0E254E;
-  --color-nx-blue: #1677FF;
-  --color-nx-cyan: #39B9FF;
-
   /* Supporting Colors */
   --color-nexus-bg: #F5F8FC;
   --color-nexus-white: #FFFFFF;
@@ -117,7 +110,7 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    overflow-x: hidden;
+    overflow-x: clip;
     width: 100%;
     -webkit-text-size-adjust: 100%;
   }
@@ -125,13 +118,13 @@
     @apply border-[color:var(--border)];
   }
   body {
-    overflow-x: hidden;
+    overflow-x: clip;
     width: 100%;
     max-width: 100vw;
     @apply bg-[color:var(--background)] text-[color:var(--foreground)] antialiased selection:bg-[color:var(--primary)] selection:text-[color:var(--primary-foreground)];
   }
   #root {
-    overflow-x: hidden;
+    overflow-x: clip;
     width: 100%;
   }
 }
@@ -436,39 +429,6 @@
 
 .hero-btn-glow:hover {
   box-shadow: 0 0 25px rgba(255, 255, 255, 0.7);
-}
-
-/* NX Glass Surface and Link Underline Utilities */
-.nx-surface {
-  background: rgba(7, 20, 47, 0.92);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.55);
-}
-
-.nx-link-underline {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-}
-
-.nx-link-underline::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  transform: scaleX(0);
-  height: 1.5px;
-  bottom: -2px;
-  left: 0;
-  background-color: currentColor;
-  transform-origin: bottom right;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.nx-link-underline:hover::after {
-  transform: scaleX(1);
-  transform-origin: bottom left;
 }
 
 
